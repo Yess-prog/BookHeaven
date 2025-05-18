@@ -1,7 +1,53 @@
 {# templates/home/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome{% endblock %}
+{% block title %}Welcome to SymBook{% endblock %}
 
 {% block body %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-3 fw-bold">📚 Welcome to <span class="text-primary">SymBook</span></h1>
+        <p class="lead text-muted">Discover your next favorite book. Read more. Spend less.</p>
+        <a href="{{ path('client_livres') }}" class="btn btn-outline-primary btn-lg mt-3 px-4">
+            <i class="bi bi-book-half me-2"></i>Browse Our Collection
+        </a>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794" class="card-img-top" alt="Books on shelf">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Vast Collection</h5>
+                    <p class="card-text text-muted">From timeless classics to new releases, we have it all.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc" class="card-img-top" alt="Discounted books">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Affordable Prices</h5>
+                    <p class="card-text text-muted">Enjoy competitive prices and seasonal discounts.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+    <div class="card h-100 shadow-sm border-0">
+        <img src="https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg"
+     class="card-img-top" alt="Fast delivery">
+        <div class="card-body text-center">
+            <h5 class="card-title fw-bold">Quick Delivery</h5>
+            <p class="card-text text-muted">Fast and secure delivery right to your doorstep.</p>
+        </div>
+    </div>
+</div>
+    </div>
+
+    <div class="text-center mt-5">
+        <p class="text-muted">Join thousands of happy readers. <a href="{{ path('app_register') }}">Create an account</a> and start exploring.</p>
+    </div>
+</div>
 {% endblock %}
