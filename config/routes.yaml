@@ -1,0 +1,18 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+ajouter_au_panier:
+    path: /ajouter-au-panier/{id}
+    controller: App\Controller\PanierController::ajouterAuPanier
+
+panier:
+    path: /panier
+    controller: App\Controller\PanierController::afficherPanier
+
+supprimer_du_panier:
+    path: /supprimer-du-panier/{id}
+    controller: App\Controller\PanierController::supprimerDuPanier
+
+    

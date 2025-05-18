@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail du livre{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>{{ livre.titre }}</h1>
+
+        <img src="{{livre.image}}" class="img-fluid" alt="{{ livre.titre }}">
+
+        <p><strong>Prix :</strong> {{ livre.prix }} €</p>
+        <p><strong>ISBN :</strong> {{ livre.isbn }}</p>
+        <p><strong>Éditeur :</strong> {{ livre.editeur }}</p>
+        <p><strong>Date d'édition :</strong> {{ livre.dateEdition ? livre.dateEdition|date('d/m/Y') : 'N/A' }}</p>
+        <p><strong>Résumé :</strong> {{ livre.resume }}</p>
+
+        <a href="{{ path('client_livres') }}" class="btn btn-secondary mt-3">← Retour aux livres</a>
+    </div>
+{% endblock %}

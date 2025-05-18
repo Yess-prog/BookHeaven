@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre Panier{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="my-4">Panier</h1>
+
+    {% if panier is empty %}
+        <p>Votre panier est vide. <a href="{{ path('client_livres') }}">Parcourir les livres</a></p>
+    {% else %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for id, item in panier %}
+                    <tr>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.price }} €</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <a href="{{ path('modifier_quantite_panier', {id: id, action: 'decrease'}) }}" class="btn btn-outline-secondary btn-sm me-1">−</a>
+                                <span class="mx-2">{{ item.quantity }}</span>
+                                <a href="{{ path('modifier_quantite_panier', {id: id, action: 'increase'}) }}" class="btn btn-outline-secondary btn-sm ms-1">+</a>
+                            </div>
+                        </td>
+                        <td>{{ item.price * item.quantity }} €</td>
+                        <td>
+                            <a href="{{ path('supprimer_du_panier', {id: id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-end">
+            <h3>Total : 
+                {% set total = 0 %}
+                {% for item in panier %}
+                    {% set total = total + (item.price * item.quantity) %}
+                {% endfor %}
+                {{ total }} €
+            </h3>
+            <a href="#" class="btn btn-success">Passer à la commande</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

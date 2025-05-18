@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+<style>
+    /* Container for the table with scroll */
+    .table-container {
+        max-width: 100%; /* Full width for the container */
+        margin-top: 20px; /* Space from the top */
+        overflow-x: auto; /* Enable horizontal scrolling */
+    }
+
+    /* Styling for the table */
+    table {
+        width: 100%; /* Full width */
+        min-width: 900px; /* Set a minimum width to avoid too narrow table */
+        border-collapse: collapse; /* Remove spaces between cells */
+        margin: 0 auto; /* Center the table */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow around the table */
+    }
+
+    /* Table header styling */
+    th {
+        background-color: #007bff; /* Blue background for header */
+        color: white; /* White text */
+        padding: 10px; /* Padding for cells */
+        text-align: left; /* Align text to the left */
+        font-weight: bold;
+    }
+
+    /* Table body styling */
+    td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd; /* Light border for rows */
+    }
+
+    /* Hover effect for table rows */
+    tr:hover {
+        background-color: #f1f1f1; /* Light grey background on hover */
+    }
+
+    /* Action buttons in the last column */
+    .action-buttons a {
+        text-decoration: none;
+        padding: 6px 12px;
+        margin: 5px 0; /* Vertical margin between buttons */
+        color: white;
+        background-color: #28a745; /* Green background */
+        border-radius: 4px;
+        font-size: 14px;
+        display: block; /* Make the buttons block elements so they stack */
+        width: 100%; /* Optional: makes buttons take up the full width */
+        text-align: center; /* Centers the text inside the buttons */
+        transition: background-color 0.3s;
+    }
+
+    .action-buttons a:hover {
+        background-color: #218838; /* Darker green on hover */
+    }
+
+    .action-buttons a.edit {
+        background-color: #ffc107; /* Yellow for edit */
+    }
+
+    .action-buttons a.edit:hover {
+        background-color: #e0a800; /* Darker yellow on hover */
+    }
+
+    .action-buttons a.show {
+        background-color: #007bff; /* Blue for show */
+    }
+
+    .action-buttons a.show:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+    }
+
+    /* "Create New" button styling */
+    .create-new {
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 4px;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+    }
+
+    .create-new:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+    }
+</style>
+<h1>User index</h1>
+
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>MotDePasse</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>DateCreation</th>
+                <th>Adresse</th>
+                <th>IsVerified</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles|join(', ') }}</td>
+                <td>{{ user.motDePasse }}</td>
+                <td>{{ user.nom }}</td>
+                <td>{{ user.prenom }}</td>
+                <td>{{ user.dateCreation ? user.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.adresse }}</td>
+                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                <td class="action-buttons">
+                    <a class="show" href="{{ path('app_user_show', {'id': user.id}) }}">Show</a>
+                    <br>
+                    <a class="edit" href="{{ path('app_user_edit', {'id': user.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10" class="text-center">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<a class="create-new" href="{{ path('app_user_new') }}">Create New</a>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous les livres{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4">Liste des Livres</h1>
+
+    <form method="get" action="{{ path('client_livres') }}" class="row mb-4">
+        <div class="col-md-4">
+            <input type="text" name="q" class="form-control form-control-sm" placeholder="Rechercher par titre ou auteur..." value="{{ app.request.get('q') }}">
+        </div>
+        <div class="col-md-4">
+            <select name="categorie" class="form-select form-select-sm">
+                <option value="">Toutes les catégories</option>
+                {% for categorie in categories %}
+                    <option value="{{ categorie.id }}" {% if app.request.get('categorie') == categorie.id %}selected{% endif %}>{{ categorie.libelle }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary btn-sm w-100">Rechercher</button>
+        </div>
+    </form>
+
+    <div class="row">
+        {% for livre in livres %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ livre.image }}" class="card-img-top" alt="{{ livre.titre }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ livre.titre }}</h5>
+                        <p class="card-text">{{ livre.prix }} €</p>
+                        <a href="{{ path('client_livre_detail', {'id': livre.id}) }}" class="btn btn-primary">Voir détails</a>
+                        <a href="{{ path('ajouter_au_panier', {id: livre.id}) }}" class="btn btn-success mt-2">Ajouter au panier</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucun livre trouvé.</p>
+        {% endfor %}
+    </div>
+
+    {{ knp_pagination_render(livres) }}
+</div>
+{% endblock %}
